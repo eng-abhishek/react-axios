@@ -17,6 +17,21 @@ function Read(){
         getData();
     },[]);
 
+    function handleDelete(id){
+      console.log(id);
+      Axios.delete(`https://691b24102d8d78557571b3ad.mockapi.io/curd/${id}`).then((res)=>{
+          getData();
+      })
+    }
+
+    function setDataToStorage(id,name,age,email){
+       //console.log(id,name,age,email);
+       localStorage.setItem('id',id);
+       localStorage.setItem('name',name);
+       localStorage.setItem('age',age);
+       localStorage.setItem('email',email);
+      }
+
     return(<>
     <div>
 
@@ -46,10 +61,14 @@ function Read(){
                             <td>{item.e_name}</td>
                             <td>{item.e_age}</td>
                             <td>{item.e_email}</td>
-                            <td><button className="btn btn-primary">Edit</button></td>
-                            <td><button className="btn btn-danger">Delete</button></td>
+                            <td>
+                            <Link to='/edit'>
+                            <button className="btn btn-primary" onClick={()=>setDataToStorage(item.id,item.e_name,item.e_age,item.e_email)}>Edit</button>
+                            </Link>    
+                            </td>
+                            <td><button className="btn btn-danger" onClick={()=> { if(window.confirm('You wants to remove it.')){ handleDelete(item.id) }} }>Delete</button></td>
                             </tr>
-                    </>)
+                        </>)
                     })
                 }
             </tbody>

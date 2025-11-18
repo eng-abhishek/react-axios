@@ -11,7 +11,7 @@ function PostAxios(){
 
         Axios.post('https://jsonplaceholder.typicode.com/posts',{title:my_title,body:my_body}).then((res)=>{
              console.log(res);
-
+    
         }).catch((error)=>{
             console.log(error)
         })

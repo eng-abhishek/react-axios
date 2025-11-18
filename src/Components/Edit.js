@@ -1,15 +1,23 @@
-import React,{useState,useEffect} from "react";
 import Axios from "axios";
+import React,{useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {Link} from 'react-router-dom';
 
-function Curd(){
-   
+function Edit(){
+
+   const[id,setId]= useState(0);
    const[name,setName]= useState('');
    const[email,setEmail]= useState('');
    const[age,setAge]= useState('');
    
    const navigate = useNavigate();
+
+       useEffect(()=>{
+       setId(localStorage.getItem('id'));
+       setName(localStorage.getItem('name'));
+       setEmail(localStorage.getItem('email'));
+       setAge(localStorage.getItem('age'));
+       },[]);
 
       const handleName = (e) => {
          setName(e.target.value);
@@ -18,26 +26,25 @@ function Curd(){
       const handleEmail = (e) => {
          setEmail(e.target.value);
       }
+
       const handleAge = (e) => {
          setAge(e.target.value);
       }
 
      const handleSubmit = (e) => {
          e.preventDefault();
-         console.log(e.target);
-         Axios.post('https://691b24102d8d78557571b3ad.mockapi.io/curd',{e_name:name,e_email:email,e_age:age});
+         Axios.put(`https://691b24102d8d78557571b3ad.mockapi.io/curd/${id}`,{e_name:name,e_email:email,e_age:age});
          navigate('/');
      }
-   
-   return(
-          <>
+
+        return(<>
           <div className="row">
             <div className="col-md-4">
                <div>
                  <Link to={'/'}><button type="button" className="btn btn-info">Read Data</button></Link>
                </div>
                <div className="bg-primary p-4 text-center text-white">
-                  CURD Application...
+                  Edit Form Data
                </div>
                <form className="p-2" onSubmit={handleSubmit}>
                   <div className="form-group">
@@ -57,8 +64,7 @@ function Curd(){
                </form>
             </div>
           </div>
-          </>
-          );
+          </>);
 }
 
-export default Curd;
+export default Edit;
