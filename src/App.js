@@ -20,8 +20,8 @@ function App() {
       <Route path='' element={<Read/>}> Read </ Route>
        */}
        <Route path='/' element={<Read/>}>Read</Route>
-       <Route path='/create' element={<Curd/>}>Curd</Route>
-       <Route path='/edit' element={<Edit/>}>Curd</Route>
+       <Route path='/create' element={<Curd/>}>Create</Route>
+       <Route path='/edit' element={<Edit/>}>Edit</Route>
      </Routes>
     </div>
   );
